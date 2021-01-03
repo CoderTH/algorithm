@@ -24,8 +24,6 @@ func SortTest(sortName string,arr []int,t *testing.T)  {
 		SelectIonSort.SelectionSort(arr)
 	}else if sortName == "InsertionSort" {
 		InsertionSort.InsertionSort(arr)
-	}else if sortName == "InsertionSort2" {
-		InsertionSort.InsertionSort2(arr)
 	}
 	elapsed := time.Since(start)
 	err := IsSorted(arr)
