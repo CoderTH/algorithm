@@ -1,6 +1,7 @@
-package LinearSearch
+package test
 
 import (
+	"algorithm/LinearSearch"
 	"fmt"
 	"testing"
 	"time"
@@ -15,24 +16,24 @@ func TestLinearSearch(t *testing.T) {
 		data[i] = v
 	}
 	//找到测试
-	res := Search(data, 66)
+	res := LinearSearch.Search(data, 66)
 	fmt.Println(res)
 	//找不到测试
-	res2 := Search(data, 99)
+	res2 := LinearSearch.Search(data, 99)
 	fmt.Println(res2)
 }
 //使用数组生成器测试
 func TestLinearGeneratorSearch(t *testing.T) {
 	dataSize := []int{100000,1000000}
 	for _,n:=range dataSize{
-		tamp := GenerateOrderedArray(n)
+		tamp := LinearSearch.GenerateOrderedArray(n)
 		data := make([]interface{},len(tamp))
 		for i,v:=range tamp{
 			data[i] = v
 		}
 		start:= time.Now()
 		for k := 0; k < 10; k++ {
-			Search(data, n)
+			LinearSearch.Search(data, n)
 		}
 		elapsed := time.Since(start)
 		fmt.Println("n=",n,"10 runs LinearSearch  time of use：", elapsed)
