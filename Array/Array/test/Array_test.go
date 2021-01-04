@@ -7,7 +7,7 @@ import (
 )
 
 func TestArray(t *testing.T)  {
-	arr := Array.NewArray(20)
+	arr := Array.NewArray(2)
 	for i:=0;i<10;i++ {
 		arr.AddLast(i)
 	}

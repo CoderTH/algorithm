@@ -56,11 +56,12 @@ func (a *array) AddFirst(e interface{}) {
 }
 //在第index个位置上插入一个新的元素
 func (a *array) Add(index int, e interface{}) {
-	if a.size == len(a.data) {
-		panic("AddLst failed.array is full")
-	}
+
 	if index<0||index>a.size{
 		panic("AddLst failed.Required index>=0and")
+	}
+	if a.size == len(a.data) {
+		a.resize(2 * a.size)
 	}
 	for i:=a.size-1;i>=index;i--{
 		a.data[i+1] = a.data[i]
@@ -135,6 +136,14 @@ func (a *array) RemoveElement(e interface{})bool {
 		return true
 	}
 	return false
+}
+
+func (a *array) resize(newCapacity int) {
+	newArr := make([]interface{}, newCapacity)
+	for i := 0; i < a.size; i++ {
+		newArr[i] = a.data[i]
+	}
+	a.data = newArr
 }
 
 
