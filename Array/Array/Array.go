@@ -118,8 +118,8 @@ func (a *array) Remove(index int)interface{} {
 		a.data[i] = a.data[i+1]
 	}
 	a.size--
-	if a.size == len(a.data)/2{
-		a.resize(len(a.data)/2)
+	if a.size == len(a.data)/4{
+		a.resize(len(a.data)/4)
 	}
 	return res
 }
