@@ -118,6 +118,9 @@ func (a *array) Remove(index int)interface{} {
 		a.data[i] = a.data[i+1]
 	}
 	a.size--
+	if a.size == len(a.data)/2{
+		a.resize(len(a.data)/2)
+	}
 	return res
 }
 //删除数组中第一个元素，返回删除的元素
