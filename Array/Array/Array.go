@@ -18,9 +18,12 @@ type IArray interface {
 	RemoveFirst()interface{}
 	RemoveLast()interface{}
 	RemoveElement(e interface{})bool
+	GetLast()interface{}
+	GetFirst()interface{}
+	GetArray()[]interface{}
 }
 //不支持自定义类型
-type array struct {
+type Array struct {
 	data []interface{}
 	size int
 }
@@ -28,34 +31,46 @@ type array struct {
 
 //构造函数，传入数组的容量cap构造Array
 func NewArray(cap int) IArray {
-	return &array{
+	return &Array{
 		data: make([]interface{},cap),
 		size: 0,
 	}
 }
 
+func (a *Array) GetArray()[]interface{} {
+	return a.data[:a.size]
+}
+
+func (a *Array) GetLast() interface{} {
+	return a.Get(a.size-1)
+}
+
+func (a *Array) GetFirst() interface{} {
+	return a.Get(0)
+}
+
 //获取数组元素个数
-func (a *array) GetSize() int {
+func (a *Array) GetSize() int {
 	return a.size
 }
 //获取数组的容量
-func (a *array) GetCapacity() int {
+func (a *Array) GetCapacity() int {
 	return len(a.data)
 }
 //判断动态数组是否为空
-func (a *array) IsEmpty() bool {
+func (a *Array) IsEmpty() bool {
 	return a.size==0
 }
 //添加新的元素
-func (a *array) AddLast(e interface{}) {
+func (a *Array) AddLast(e interface{}) {
 	a.Add(a.size,e)
 }
 //添加到头
-func (a *array) AddFirst(e interface{}) {
+func (a *Array) AddFirst(e interface{}) {
 	a.Add(0,e)
 }
 //在第index个位置上插入一个新的元素
-func (a *array) Add(index int, e interface{}) {
+func (a *Array) Add(index int, e interface{}) {
 
 	if index<0||index>a.size{
 		panic("AddLst failed.Required index>=0and")
@@ -70,28 +85,28 @@ func (a *array) Add(index int, e interface{}) {
 	a.size++
 }
 
-func (a *array) String()string {
+func (a *Array) String()string {
 	var str string
-	str = fmt.Sprintf("array : size = %d,capacity = %d\n",a.size,len(a.data))
+	str = fmt.Sprintf("Array : size = %d,capacity = %d\n",a.size,len(a.data))
 	str = fmt.Sprintf("%s%v\n",str,a.data[0:a.size])
 	return str
 }
 //获取索引位置的值
-func (a *array) Get(index int) interface{} {
+func (a *Array) Get(index int) interface{} {
 	if index < 0 || index >= a.size {
 		panic("Get failed. Index is illegal")
 	}
 	return a.data[index]
 }
 //设置指定索引位置的值
-func (a *array) Set(index int, e interface{})  {
+func (a *Array) Set(index int, e interface{})  {
 	if index < 0 || index >= a.size {
 		panic("Set failed. Index is illegal")
 	}
 	a.data[index] = e
 }
 //判断是否有e这个元素
-func (a *array) Contains(e interface{}) bool{
+func (a *Array) Contains(e interface{}) bool{
 	for i:=0;i<a.size;i++ {
 		if a.data[i]==e {
 			return true
@@ -100,7 +115,7 @@ func (a *array) Contains(e interface{}) bool{
 	return false
 }
 //查找数组中元素e所在的索引，如果不存在元素e，则返回-1
-func (a *array) Find(e interface{}) int {
+func (a *Array) Find(e interface{}) int {
 	for i:=0;i<a.size;i++{
 		if a.data[i]==e {
 			return i
@@ -109,7 +124,7 @@ func (a *array) Find(e interface{}) int {
 	return -1
 }
 //从数组中删除index位置的元素，返回删除的元素
-func (a *array) Remove(index int)interface{} {
+func (a *Array) Remove(index int)interface{} {
 	if index<0||index>a.size{
 		panic("Remove failed.Required index>=0and")
 	}
@@ -124,15 +139,15 @@ func (a *array) Remove(index int)interface{} {
 	return res
 }
 //删除数组中第一个元素，返回删除的元素
-func (a *array) RemoveFirst() interface{} {
+func (a *Array) RemoveFirst() interface{} {
 	return a.Remove(0)
 }
 //删除数组中最后一个元素，返回删除元素
-func (a *array) RemoveLast() interface{} {
+func (a *Array) RemoveLast() interface{} {
 	return a.Remove(a.size-1)
 }
 //从数组数组中删除e(只删除第一个)
-func (a *array) RemoveElement(e interface{})bool {
+func (a *Array) RemoveElement(e interface{})bool {
 	find := a.Find(e)
 	if find!=-1 {
 		a.Remove(find)
@@ -141,7 +156,7 @@ func (a *array) RemoveElement(e interface{})bool {
 	return false
 }
 
-func (a *array) resize(newCapacity int) {
+func (a *Array) resize(newCapacity int) {
 	newArr := make([]interface{}, newCapacity)
 	for i := 0; i < a.size; i++ {
 		newArr[i] = a.data[i]
