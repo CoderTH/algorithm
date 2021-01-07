@@ -13,6 +13,9 @@ type ILinkedList interface {
 	GetLast()interface{}
 	Set(index int,e interface{})
 	Contains(e interface{})bool
+	Remove(index int)interface{}
+	RemoveFirst()interface{}
+	RemoveLast()interface{}
 }
 type LinkedList struct {
 	dummyHead *node
@@ -43,6 +46,7 @@ func NewLinkedList() ILinkedList {
 }
 
 
+
 //链表是否为空
 func (l *LinkedList) IsEmpty() bool {
 	return l.size == 0
@@ -65,7 +69,6 @@ func (l *LinkedList) Add(index int, e interface{}) {
 		//prev.next = node
 		prev.next = NewNode(e,prev.next)
 		l.size++
-
 }
 //在链表的头部添加元素e
 func (l *LinkedList) AddFirst(e interface{}) {
@@ -124,11 +127,36 @@ func (l *LinkedList) Contains(e interface{}) bool {
 func (l *LinkedList)String()string{
 	var str string
 	cur := l.dummyHead.next
-	for cur.next!=nil {
+	//fmt.Println("kkkk :",cur.e)`
+	for cur!=nil {
 		val := cur.e
 		str+= fmt.Sprintf("%#v",val)+"->"
 		cur = cur.next
 	}
 	str+="nil"
 	return str
+}
+
+//删除指定节点并返回删除的数据
+func (l *LinkedList) Remove(index int) interface{} {
+	if index<0||index>l.size{
+		panic("remove failed.Index is illegal.")
+	}
+	prev := l.dummyHead
+	for i :=0;i<index;i++{
+		prev = prev.next
+	}
+	deleteNode := prev.next
+	prev.next = deleteNode.next
+	deleteNode.next = nil
+	l.size--
+	return deleteNode.e
+}
+//删除链表中第一个元素
+func (l *LinkedList) RemoveFirst() interface{} {
+	return l.Remove(0)
+}
+//删除链表中最后一个元素
+func (l *LinkedList) RemoveLast() interface{} {
+	return l.Remove(l.size-1)
 }
