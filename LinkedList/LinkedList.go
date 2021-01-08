@@ -123,20 +123,6 @@ func (l *LinkedList) Contains(e interface{}) bool {
 	return false
 
 }
-
-func (l *LinkedList)String()string{
-	var str string
-	cur := l.dummyHead.next
-	//fmt.Println("kkkk :",cur.e)`
-	for cur!=nil {
-		val := cur.e
-		str+= fmt.Sprintf("%#v",val)+"->"
-		cur = cur.next
-	}
-	str+="nil"
-	return str
-}
-
 //删除指定节点并返回删除的数据
 func (l *LinkedList) Remove(index int) interface{} {
 	if index<0||index>l.size{
@@ -159,4 +145,16 @@ func (l *LinkedList) RemoveFirst() interface{} {
 //删除链表中最后一个元素
 func (l *LinkedList) RemoveLast() interface{} {
 	return l.Remove(l.size-1)
+}
+func (l *LinkedList)String()string{
+	var str string
+	cur := l.dummyHead.next
+	//fmt.Println("kkkk :",cur.e)`
+	for cur!=nil {
+		val := cur.e
+		str+= fmt.Sprintf("%#v",val)+"->"
+		cur = cur.next
+	}
+	str+="nil"
+	return str
 }
