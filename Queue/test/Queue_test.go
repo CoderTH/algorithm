@@ -10,12 +10,15 @@ import (
 
 func TestQueue(t *testing.T)  {
 	opCount := 1000000
-	ArrayQueue := Queue.NewArrayQueue(10)
-	queue2 := testQueue(ArrayQueue, opCount)
-	fmt.Println("ArrayQueue time  : ",queue2)
 	loopQueue := Queue.NewLoopQueue(10)
 	queue := testQueue(loopQueue, opCount)
 	fmt.Println("loopQueue time  : ",queue)
+	ArrayQueue := Queue.NewArrayQueue(10)
+	queue2 := testQueue(ArrayQueue, opCount)
+	fmt.Println("ArrayQueue time  : ",queue2)
+	LinkedListQueue := Queue.NewLinkedListQueue()
+	queue3 := testQueue(LinkedListQueue, opCount)
+	fmt.Println("LinkedListQueue time  : ",queue3)
 
 
 }
