@@ -9,7 +9,7 @@ import (
 )
 
 func TestQueue(t *testing.T)  {
-	opCount := 1000000
+	opCount := 100000
 	loopQueue := Queue.NewLoopQueue(10)
 	queue := testQueue(loopQueue, opCount)
 	fmt.Println("loopQueue time  : ",queue)
