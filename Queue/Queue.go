@@ -22,7 +22,6 @@ func NewArrayQueue(capacity int) Queue {
 		array: Array.NewArray(10),
 	}
 }
-
 func (a *ArrayQueue) GetSize() int {
 	return a.array.GetSize()
 }
