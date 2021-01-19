@@ -2,6 +2,7 @@ package SortingHelper
 
 import (
 	"algorithm/InsertionSort"
+	"algorithm/MergeSort"
 	"algorithm/SelectIonSort"
 	"errors"
 	"fmt"
@@ -24,6 +25,8 @@ func SortTest(sortName string,arr []int,t *testing.T)  {
 		SelectIonSort.SelectionSort(arr)
 	}else if sortName == "InsertionSort" {
 		InsertionSort.InsertionSort(arr)
+	}else if sortName == "MergeSort" {
+		MergeSort.Sort(arr)
 	}
 	elapsed := time.Since(start)
 	err := IsSorted(arr)
