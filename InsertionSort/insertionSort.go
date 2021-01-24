@@ -10,3 +10,11 @@ func InsertionSort(arr []int)  {
 	}
 }
 
+
+func InsertionSort2(arr []int,l int,r int)  {
+	for i := l+1;  i<=r; i++ {
+		for j := i; j > l&&arr[j] < arr[j-1]; j-- {
+			arr[j], arr[j-1] = arr[j-1], arr[j]
+		}
+	}
+}
