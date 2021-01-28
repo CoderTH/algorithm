@@ -3,6 +3,7 @@ package SortingHelper
 import (
 	"algorithm/InsertionSort"
 	"algorithm/MergeSort"
+	"algorithm/QuickSort"
 	"algorithm/SelectIonSort"
 	"errors"
 	"fmt"
@@ -27,6 +28,8 @@ func SortTest(sortName string,arr []int,t *testing.T)  {
 		InsertionSort.InsertionSort(arr)
 	}else if sortName == "MergeSort" {
 		MergeSort.Sort(arr)
+	}else if sortName == "QuickSort" {
+		QuickSort.Sort(arr)
 	}
 	elapsed := time.Since(start)
 	err := IsSorted(arr)
