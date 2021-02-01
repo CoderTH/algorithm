@@ -7,14 +7,14 @@ import (
 
 type Queue interface {
 	GetSize() int
-	IsEmpty()bool
+	IsEmpty() bool
 	Enqueue(e interface{})
-	Dequeue()interface{}
-	GetFront()interface{}
+	Dequeue() interface{}
+	GetFront() interface{}
 }
 
 type ArrayQueue struct {
-    array Array.IArray
+	array Array.IArray
 }
 
 func NewArrayQueue(capacity int) Queue {
@@ -42,8 +42,8 @@ func (a *ArrayQueue) GetFront() interface{} {
 	return a.array.GetFirst()
 }
 
-func (a *ArrayQueue)String()string{
+func (a *ArrayQueue) String() string {
 	var str string
-	str = fmt.Sprintf("Queue : front %v tail \n",a.array.GetArray())
+	str = fmt.Sprintf("Queue : front %v tail \n", a.array.GetArray())
 	return str
 }

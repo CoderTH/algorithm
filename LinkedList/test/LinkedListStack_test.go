@@ -6,9 +6,9 @@ import (
 	"testing"
 )
 
-func TestLinkedListStack(t *testing.T)  {
+func TestLinkedListStack(t *testing.T) {
 	linkedListStack := LinkedListStack.NewLinkedListStarck()
-	for i :=0;i<5;i++{
+	for i := 0; i < 5; i++ {
 		linkedListStack.Push(i)
 		fmt.Println(linkedListStack)
 	}

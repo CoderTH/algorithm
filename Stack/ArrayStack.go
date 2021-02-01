@@ -24,7 +24,7 @@ func (a *arrayStack) IsEmpty() bool {
 	return a.array.IsEmpty()
 }
 
-func (a *arrayStack) GetCapacity() int{
+func (a *arrayStack) GetCapacity() int {
 	return a.array.GetCapacity()
 }
 
@@ -40,13 +40,8 @@ func (a *arrayStack) Peek() interface{} {
 	return a.array.GetLast()
 }
 
-func (a *arrayStack)String()string{
+func (a *arrayStack) String() string {
 	var str string
-	str = fmt.Sprintf("Stack : %v top \n",a.array.GetArray())
+	str = fmt.Sprintf("Stack : %v top \n", a.array.GetArray())
 	return str
 }
-
-
-
-
-

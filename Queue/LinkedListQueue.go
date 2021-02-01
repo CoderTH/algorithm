@@ -3,27 +3,28 @@ package Queue
 import "fmt"
 
 type LinkedListQueue struct {
-	head,tail *node
-	size int
+	head, tail *node
+	size       int
 }
 type node struct {
-	e interface{}
+	e    interface{}
 	next *node
 }
-func NewNode(e interface{},next *node)*node  {
+
+func NewNode(e interface{}, next *node) *node {
 	return &node{
-		e: e,
+		e:    e,
 		next: next,
 	}
 }
 
-func NewNodeIsNil(e interface{})*node  {
+func NewNodeIsNil(e interface{}) *node {
 	return &node{
-		e: e,
+		e:    e,
 		next: nil,
 	}
 }
-func NewLinkedListQueue()Queue {
+func NewLinkedListQueue() Queue {
 	return &LinkedListQueue{
 		head: nil,
 		tail: nil,
@@ -36,14 +37,14 @@ func (l *LinkedListQueue) GetSize() int {
 }
 
 func (l *LinkedListQueue) IsEmpty() bool {
-	return l.size==0
+	return l.size == 0
 }
 
 func (l *LinkedListQueue) Enqueue(e interface{}) {
 	if l.tail == nil {
-			l.tail = NewNodeIsNil(e)
-			l.head = l.tail
-	}else {
+		l.tail = NewNodeIsNil(e)
+		l.head = l.tail
+	} else {
 		l.tail.next = NewNodeIsNil(e)
 		l.tail = l.tail.next
 	}
@@ -71,17 +72,16 @@ func (l *LinkedListQueue) GetFront() interface{} {
 	return l.head.e
 }
 
-func (l *LinkedListQueue)String()string{
+func (l *LinkedListQueue) String() string {
 	var str string
 	cur := l.head
-	str+="Queue:front "
+	str += "Queue:front "
 	//fmt.Println("kkkk :",cur.e)`
-	for cur!=nil {
+	for cur != nil {
 		val := cur.e
-		str+= fmt.Sprintf("%#v",val)+"->"
+		str += fmt.Sprintf("%#v", val) + "->"
 		cur = cur.next
 	}
-	str+="nil tail"
+	str += "nil tail"
 	return str
 }
-

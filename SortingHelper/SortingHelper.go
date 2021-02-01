@@ -12,29 +12,33 @@ import (
 )
 
 func IsSorted(arr []int) error {
-	for i:=0;i<len(arr)-1;i++{
-		if arr[i]>arr[i+1] {
+	for i := 0; i < len(arr)-1; i++ {
+		if arr[i] > arr[i+1] {
 			return errors.New("this sort is error ")
 		}
 	}
 	return nil
 }
 
-func SortTest(sortName string,arr []int,t *testing.T)  {
-	start:= time.Now()
+func SortTest(sortName string, arr []int, t *testing.T) {
+	start := time.Now()
 	if sortName == "SelectionSort" {
 		SelectIonSort.SelectionSort(arr)
-	}else if sortName == "InsertionSort" {
+	} else if sortName == "InsertionSort" {
 		InsertionSort.InsertionSort(arr)
-	}else if sortName == "MergeSort" {
+	} else if sortName == "MergeSort" {
 		MergeSort.Sort(arr)
-	}else if sortName == "QuickSort" {
+	} else if sortName == "QuickSort" {
 		QuickSort.Sort(arr)
+	} else if sortName == "QuickSort2Ways" {
+		QuickSort.Sort2ways(arr)
+	} else if sortName == "QuickSort3Ways" {
+		QuickSort.Sort3ways(arr)
 	}
 	elapsed := time.Since(start)
 	err := IsSorted(arr)
 	if err != nil {
-		t.Error(sortName," ",err)
+		t.Error(sortName, " ", err)
 	}
-	fmt.Println(sortName+" n=",len(arr)," time of use：", elapsed)
+	fmt.Println(sortName+" n=", len(arr), " time of use：", elapsed)
 }
