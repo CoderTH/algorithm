@@ -158,6 +158,118 @@ func (bst *BST) LevelOrder() {
 		}
 	}
 }
+//寻找二分搜索树中最小的元素
+func (bst *BST) MiniMun()int {
+	if bst.size == 0 {
+		panic("BST is empty!")
+	}
+	return bst.minMun(bst.root).E
+}
+
+func (bst *BST) minMun(Node *node)*node {
+	if Node.Left == nil {
+		return Node
+	}
+	return bst.minMun(Node.Left)
+
+}
+//寻找二分搜索树中最大的元素
+func (bst *BST) MaxiMun()int {
+	if bst.size == 0 {
+		panic("BST is empty!")
+	}
+	return bst.maxMun(bst.root).E
+}
+
+func (bst *BST) maxMun(Node *node)*node {
+	if Node.Right == nil {
+		return Node
+	}
+	return bst.maxMun(Node.Right)
+
+}
+//从二分搜索树中删除最小值虽在的节点，返回最小值
+func (bst *BST) RemoveMin() int{
+	ret := bst.MiniMun()
+	bst.root= bst.removeMin(bst.root)
+	return ret
+
+}
+//删除以node为根的二分搜索树中的最小节点
+//返回删除节点后新的二分搜索树的根
+func (bst *BST) removeMin(Node *node) *node{
+	if Node.Left == nil{
+		rightNode := Node.Right
+		Node.Right = nil
+		bst.size--
+		return rightNode
+	}
+	Node.Left= bst.removeMin(Node.Left)
+	return Node
+}
+
+
+
+//从二分搜索树中删除最小值虽在的节点，返回最小值
+func (bst *BST) RemoveMax() int{
+	ret := bst.MaxiMun()
+	bst.root= bst.removeMax(bst.root)
+	return ret
+
+}
+//删除以node为根的二分搜索树中的最小节点
+//返回删除节点后新的二分搜索树的根
+func (bst *BST) removeMax(Node *node) *node{
+	if Node.Right == nil{
+		leftNode := Node.Left
+		Node.Left = nil
+		bst.size--
+		return leftNode
+	}
+	Node.Right= bst.removeMin(Node.Right)
+	return Node
+}
+
+func (bst *BST) Remove(E int) {
+	bst.root = bst.remove(bst.root,E)
+}
+func (bst *BST) remove(Node *node,E int) *node {
+	if Node == nil {
+		return nil
+	}
+	if E < Node.E {
+		Node.Left= bst.remove(Node.Left, E)
+		return Node
+	}else  if E > Node.E {
+		Node.Right= bst.remove(Node.Right, E)
+		return Node
+	}else {
+		//待删除节点左子树为空的情况
+		if Node.Left == nil{
+			rightNode := Node.Right
+			Node.Right = nil
+			bst.size--
+			return rightNode
+		}
+		//待删除节点右子树为空的情况
+		if Node.Right == nil{
+			leftNode := Node.Left
+			Node.Left = nil
+			bst.size--
+			return leftNode
+		}
+		//待删除节点左右子树都为空的情况
+		//待着比待删除节点大的最小节点，即待删除节点右子树最小的节点
+		//用这个节点顶替待删除节点的位置
+		successor := bst.minMun(Node.Right)
+		successor.Right = bst.removeMin(Node.Right)
+		bst.size++
+		successor.Left = Node.Left
+		Node=nil
+		bst.size--
+		return successor
+	}
+}
 
 //func(bst *BST)String()string  {
 //	var res string
