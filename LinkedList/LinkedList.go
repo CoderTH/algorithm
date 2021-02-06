@@ -16,11 +16,15 @@ type ILinkedList interface {
 	Remove(index int) interface{}
 	RemoveFirst() interface{}
 	RemoveLast() interface{}
+	RemoveElement(e interface{})
 }
 type LinkedList struct {
 	dummyHead *node
 	size      int
 }
+
+
+
 type node struct {
 	e    interface{}
 	next *node
@@ -164,4 +168,19 @@ func (l *LinkedList) String() string {
 	}
 	str += "nil"
 	return str
+}
+
+func (l *LinkedList) RemoveElement(e interface{}) {
+	prev := l.dummyHead
+	for prev.next != nil {
+		if prev.next.e == e {
+			break
+		}
+		prev = prev.next
+	}
+	if prev.next != nil {
+		delNode := prev.next
+		prev.next = delNode.next
+		delNode.next = nil
+	}
 }

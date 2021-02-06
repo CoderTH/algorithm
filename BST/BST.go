@@ -208,8 +208,6 @@ func (bst *BST) removeMin(Node *node) *node{
 	return Node
 }
 
-
-
 //从二分搜索树中删除最小值虽在的节点，返回最小值
 func (bst *BST) RemoveMax() int{
 	ret := bst.MaxiMun()
@@ -271,27 +269,27 @@ func (bst *BST) remove(Node *node,E int) *node {
 	}
 }
 
-//func(bst *BST)String()string  {
-//	var res string
-//	res = bst.generateBSTString(bst.root,0,res)
-//	return res
-//}
-//
-//func (bst *BST)generateBSTString(Node *node,depth int,res string) string {
-//	if Node == nil {
-//		fmt.Sprintf("%S%Snil\n",res,bst.generateDepthString(depth))
-//		return res
-//	}
-//	fmt.Sprintf("%s%s%d\n",res,bst.generateDepthString(depth),Node.E)
-//	res = bst.generateBSTString(Node.Left,depth+1,res)
-//	res = bst.generateBSTString(Node.Right,depth+1,res)
-//	return res
-//}
-//func (bst *BST)generateDepthString(depth int) string {
-//	var str string
-//	for i:=1;i<depth;i++{
-//		str = fmt.Sprintf("%s--",str)
-//	}
-//	return str
-//}
-//
+func(bst *BST)String()string  {
+	var res string
+	res = bst.generateBSTString(bst.root,0,res)
+	return res
+}
+
+func (bst *BST)generateBSTString(Node *node,depth int,res string) string {
+	if Node == nil {
+		fmt.Sprintf("%S%Snil\n",res,bst.generateDepthString(depth))
+		return res
+	}
+	fmt.Sprintf("%s%s%d\n",res,bst.generateDepthString(depth),Node.E)
+	res = bst.generateBSTString(Node.Left,depth+1,res)
+	res = bst.generateBSTString(Node.Right,depth+1,res)
+	return res
+}
+func (bst *BST)generateDepthString(depth int) string {
+	var str string
+	for i:=1;i<depth;i++{
+		str = fmt.Sprintf("%s--",str)
+	}
+	return str
+}
+
