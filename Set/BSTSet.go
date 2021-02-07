@@ -6,7 +6,6 @@ type BSTSet struct {
 	bst *BST.BST
 }
 
-
 func NewSet() BSTSet {
 	return BSTSet{
 		bst: BST.NewBST(),
@@ -32,4 +31,3 @@ func (B *BSTSet) GetSize() int {
 func (B *BSTSet) IsEmpty() bool {
 	return B.bst.IsEmpty()
 }
-

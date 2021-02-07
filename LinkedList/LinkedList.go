@@ -23,8 +23,6 @@ type LinkedList struct {
 	size      int
 }
 
-
-
 type node struct {
 	e    interface{}
 	next *node

@@ -21,6 +21,7 @@ type IArray interface {
 	GetLast() interface{}
 	GetFirst() interface{}
 	GetArray() []interface{}
+	Swap(i, j int)
 }
 
 //不支持自定义类型
@@ -35,6 +36,13 @@ func NewArray(cap int) IArray {
 		data: make([]interface{}, cap),
 		size: 0,
 	}
+}
+
+func (a *Array) Swap(i, j int) {
+	if i < 0 || i >= a.size || j < 0 || j >= a.size {
+		panic("Index is illegal.")
+	}
+	a.data[i], a.data[j] = a.data[j], a.data[i]
 }
 
 func (a *Array) GetArray() []interface{} {

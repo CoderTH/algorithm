@@ -158,99 +158,104 @@ func (bst *BST) LevelOrder() {
 		}
 	}
 }
+
 //寻找二分搜索树中最小的元素
-func (bst *BST) MiniMun()int {
+func (bst *BST) MiniMun() int {
 	if bst.size == 0 {
 		panic("BST is empty!")
 	}
 	return bst.minMun(bst.root).E
 }
 
-func (bst *BST) minMun(Node *node)*node {
+func (bst *BST) minMun(Node *node) *node {
 	if Node.Left == nil {
 		return Node
 	}
 	return bst.minMun(Node.Left)
 
 }
+
 //寻找二分搜索树中最大的元素
-func (bst *BST) MaxiMun()int {
+func (bst *BST) MaxiMun() int {
 	if bst.size == 0 {
 		panic("BST is empty!")
 	}
 	return bst.maxMun(bst.root).E
 }
 
-func (bst *BST) maxMun(Node *node)*node {
+func (bst *BST) maxMun(Node *node) *node {
 	if Node.Right == nil {
 		return Node
 	}
 	return bst.maxMun(Node.Right)
 
 }
+
 //从二分搜索树中删除最小值虽在的节点，返回最小值
-func (bst *BST) RemoveMin() int{
+func (bst *BST) RemoveMin() int {
 	ret := bst.MiniMun()
-	bst.root= bst.removeMin(bst.root)
+	bst.root = bst.removeMin(bst.root)
 	return ret
 
 }
+
 //删除以node为根的二分搜索树中的最小节点
 //返回删除节点后新的二分搜索树的根
-func (bst *BST) removeMin(Node *node) *node{
-	if Node.Left == nil{
+func (bst *BST) removeMin(Node *node) *node {
+	if Node.Left == nil {
 		rightNode := Node.Right
 		Node.Right = nil
 		bst.size--
 		return rightNode
 	}
-	Node.Left= bst.removeMin(Node.Left)
+	Node.Left = bst.removeMin(Node.Left)
 	return Node
 }
 
 //从二分搜索树中删除最小值虽在的节点，返回最小值
-func (bst *BST) RemoveMax() int{
+func (bst *BST) RemoveMax() int {
 	ret := bst.MaxiMun()
-	bst.root= bst.removeMax(bst.root)
+	bst.root = bst.removeMax(bst.root)
 	return ret
 
 }
+
 //删除以node为根的二分搜索树中的最小节点
 //返回删除节点后新的二分搜索树的根
-func (bst *BST) removeMax(Node *node) *node{
-	if Node.Right == nil{
+func (bst *BST) removeMax(Node *node) *node {
+	if Node.Right == nil {
 		leftNode := Node.Left
 		Node.Left = nil
 		bst.size--
 		return leftNode
 	}
-	Node.Right= bst.removeMin(Node.Right)
+	Node.Right = bst.removeMin(Node.Right)
 	return Node
 }
 
 func (bst *BST) Remove(E int) {
-	bst.root = bst.remove(bst.root,E)
+	bst.root = bst.remove(bst.root, E)
 }
-func (bst *BST) remove(Node *node,E int) *node {
+func (bst *BST) remove(Node *node, E int) *node {
 	if Node == nil {
 		return nil
 	}
 	if E < Node.E {
-		Node.Left= bst.remove(Node.Left, E)
+		Node.Left = bst.remove(Node.Left, E)
 		return Node
-	}else  if E > Node.E {
-		Node.Right= bst.remove(Node.Right, E)
+	} else if E > Node.E {
+		Node.Right = bst.remove(Node.Right, E)
 		return Node
-	}else {
+	} else {
 		//待删除节点左子树为空的情况
-		if Node.Left == nil{
+		if Node.Left == nil {
 			rightNode := Node.Right
 			Node.Right = nil
 			bst.size--
 			return rightNode
 		}
 		//待删除节点右子树为空的情况
-		if Node.Right == nil{
+		if Node.Right == nil {
 			leftNode := Node.Left
 			Node.Left = nil
 			bst.size--
@@ -263,33 +268,32 @@ func (bst *BST) remove(Node *node,E int) *node {
 		successor.Right = bst.removeMin(Node.Right)
 		bst.size++
 		successor.Left = Node.Left
-		Node=nil
+		Node = nil
 		bst.size--
 		return successor
 	}
 }
 
-func(bst *BST)String()string  {
+func (bst *BST) String() string {
 	var res string
-	res = bst.generateBSTString(bst.root,0,res)
+	res = bst.generateBSTString(bst.root, 0, res)
 	return res
 }
 
-func (bst *BST)generateBSTString(Node *node,depth int,res string) string {
+func (bst *BST) generateBSTString(Node *node, depth int, res string) string {
 	if Node == nil {
-		fmt.Sprintf("%S%Snil\n",res,bst.generateDepthString(depth))
+		fmt.Sprintf("%S%Snil\n", res, bst.generateDepthString(depth))
 		return res
 	}
-	fmt.Sprintf("%s%s%d\n",res,bst.generateDepthString(depth),Node.E)
-	res = bst.generateBSTString(Node.Left,depth+1,res)
-	res = bst.generateBSTString(Node.Right,depth+1,res)
+	fmt.Sprintf("%s%s%d\n", res, bst.generateDepthString(depth), Node.E)
+	res = bst.generateBSTString(Node.Left, depth+1, res)
+	res = bst.generateBSTString(Node.Right, depth+1, res)
 	return res
 }
-func (bst *BST)generateDepthString(depth int) string {
+func (bst *BST) generateDepthString(depth int) string {
 	var str string
-	for i:=1;i<depth;i++{
-		str = fmt.Sprintf("%s--",str)
+	for i := 1; i < depth; i++ {
+		str = fmt.Sprintf("%s--", str)
 	}
 	return str
 }
-

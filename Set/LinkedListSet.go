@@ -6,7 +6,7 @@ type LinkedListSet struct {
 	list LinkedList.ILinkedList
 }
 
-func NewLinkedListSet()Set  {
+func NewLinkedListSet() Set {
 	return &LinkedListSet{
 		list: LinkedList.NewLinkedList(),
 	}
@@ -33,4 +33,3 @@ func (l *LinkedListSet) GetSize() int {
 func (l *LinkedListSet) IsEmpty() bool {
 	return l.list.IsEmpty()
 }
-
