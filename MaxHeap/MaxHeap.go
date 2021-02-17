@@ -79,3 +79,13 @@ func (m *MaxHeap) siftDown(k int) {
 		k = j
 	}
 }
+
+//取出堆中的最大元素，并且替换成元素e
+func (m *MaxHeap) Replace(e int) int {
+	ret := m.FindMax()
+	m.data.Set(0,e)
+	m.siftDown(0)
+	return ret
+}
+
+

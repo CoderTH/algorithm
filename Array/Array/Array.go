@@ -37,6 +37,16 @@ func NewArray(cap int) IArray {
 		size: 0,
 	}
 }
+func NewArrayToArray(arr []int) IArray {
+	data := make([]interface{},len(arr))
+	for i:=0;i<len(arr);i++ {
+		data[i] = arr[i]
+	}
+	return &Array{
+		data: data,
+		size: len(arr),
+	}
+}
 
 func (a *Array) Swap(i, j int) {
 	if i < 0 || i >= a.size || j < 0 || j >= a.size {
