@@ -1,76 +1,88 @@
 package Lru
-type Node struct {
-	Key int
-	Value int
-	pre *Node
-	next *Node
+
+import (
+	"container/list"
+	"errors"
+)
+
+type CacheNode struct {
+	Key, Value interface{}
+}
+
+func (cnode *CacheNode) NewCacheNode(k, v interface{}) *CacheNode {
+	return &CacheNode{k, v}
 }
 
 type LRUCache struct {
-	limit int
-	HashMap map[int]*Node
-	head *Node
-	end *Node
+	Capacity int
+	dlist    *list.List
+	cacheMap map[interface{}]*list.Element
 }
 
-func Constructor(capacity int) LRUCache{
-	lruCache := LRUCache{limit:capacity}
-	lruCache.HashMap = make(map[int]*Node, capacity)
-	return lruCache
-}
-
-func (l *LRUCache) Get(key int) int {
-	if v,ok:= l.HashMap[key];ok {
-		l.refreshNode(v)
-		return v.Value
-	}else {
-		return -1
+func NewLRUCache(cap int) *LRUCache {
+	return &LRUCache{
+		Capacity: cap,
+		dlist:    list.New(),
+		cacheMap: make(map[interface{}]*list.Element),
 	}
 }
 
-func (l *LRUCache) Put(key int, value int) {
-	if v,ok := l.HashMap[key];!ok{
-		if len(l.HashMap) >= l.limit{
-			oldKey := l.removeNode(l.head)
-			delete(l.HashMap, oldKey)
+func (lru *LRUCache) Size() int {
+	return lru.dlist.Len()
+}
+
+func (lru *LRUCache) Set(k, v interface{}) error {
+
+	if lru.dlist == nil {
+		return errors.New("LRUCache结构体未初始化.")
+	}
+
+	if pElement, ok := lru.cacheMap[k]; ok {
+		lru.dlist.MoveToFront(pElement)
+		pElement.Value.(*CacheNode).Value = v
+		return nil
+	}
+
+	newElement := lru.dlist.PushFront(&CacheNode{k, v})
+	lru.cacheMap[k] = newElement
+
+	if lru.dlist.Len() > lru.Capacity {
+		//移掉最后一个
+		lastElement := lru.dlist.Back()
+		if lastElement == nil {
+			return nil
 		}
-		node := Node{Key:key, Value:value}
-		l.addNode(&node)
-		l.HashMap[key] = &node
-	}else {
-		v.Value = value
-		l.refreshNode(v)
+		cacheNode := lastElement.Value.(*CacheNode)
+		delete(lru.cacheMap, cacheNode.Key)
+		lru.dlist.Remove(lastElement)
 	}
+	return nil
 }
 
-func (l *LRUCache) refreshNode(node *Node){
-	if node == l.end {
-		return
+func (lru *LRUCache) Get(k interface{}) (v interface{}, ret bool, err error) {
+
+	if lru.cacheMap == nil {
+		return v, false, errors.New("LRUCache结构体未初始化.")
 	}
-	l.removeNode(node)
-	l.addNode(node)
+
+	if pElement, ok := lru.cacheMap[k]; ok {
+		lru.dlist.MoveToFront(pElement)
+		return pElement.Value.(*CacheNode).Value, true, nil
+	}
+	return v, false, nil
 }
 
-func (l *LRUCache) removeNode(node *Node) int{
-	if node == l.end  {
-		l.end = l.end.pre
-	}else if node == l.head {
-		l.head = l.head.next
-	}else {
-		node.pre.next = node.next
-		node.next.pre = node.pre
-	}
-	return node.Key
-}
+func (lru *LRUCache) Remove(k interface{}) bool {
 
-func (l *LRUCache) addNode(node *Node){
-	if l.end != nil {
-		l.end.next = node
-		node.pre = l.end
-		node.next = nil
+	if lru.cacheMap == nil {
+		return false
 	}
-	l.end = node
-	if l.head == nil {
-		l.head = node
+
+	if pElement, ok := lru.cacheMap[k]; ok {
+		cacheNode := pElement.Value.(*CacheNode)
+		delete(lru.cacheMap, cacheNode.Key)
+		lru.dlist.Remove(pElement)
+		return true
 	}
+	return false
 }
