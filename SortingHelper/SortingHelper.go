@@ -6,6 +6,7 @@ import (
 	"algorithm/MergeSort"
 	"algorithm/QuickSort"
 	"algorithm/SelectIonSort"
+	"algorithm/ShellSort"
 	"errors"
 	"fmt"
 	"testing"
@@ -40,6 +41,8 @@ func SortTest(sortName string, arr []int, t *testing.T) {
 		QuickSort.Sort3ways(arr)
 	}else if sortName == "HeapSort" {
 		HeapSort.Sort(arr)
+	}else if sortName == "ShellSort" {
+		ShellSort.ShellSort(arr)
 	}
 	elapsed := time.Since(start)
 	err := IsSorted(arr)
