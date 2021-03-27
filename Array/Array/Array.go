@@ -38,8 +38,8 @@ func NewArray(cap int) IArray {
 	}
 }
 func NewArrayToArray(arr []int) IArray {
-	data := make([]interface{},len(arr))
-	for i:=0;i<len(arr);i++ {
+	data := make([]interface{}, len(arr))
+	for i := 0; i < len(arr); i++ {
 		data[i] = arr[i]
 	}
 	return &Array{

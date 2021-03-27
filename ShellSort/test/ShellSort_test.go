@@ -25,5 +25,4 @@ func TestShellSort(t *testing.T) {
 	SortingHelper.SortTest("ShellSort", arr, t)
 	SortingHelper.SortTest("MergeSort", arr3, t)
 
-
 }

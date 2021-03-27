@@ -17,7 +17,7 @@ func sort(arr []int, l int, r int) {
 
 func partition(arr []int, l int, r int) int {
 	var p int = rand.Intn(r-l+1) + l
-	arr[l], arr[p] = arr[p], arr[l]//将标定点元素换到第一个
+	arr[l], arr[p] = arr[p], arr[l] //将标定点元素换到第一个
 	j := l
 	for i := l + 1; i <= r; i++ {
 		if arr[i] < arr[l] {

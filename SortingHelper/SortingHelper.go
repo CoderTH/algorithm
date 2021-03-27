@@ -16,8 +16,8 @@ import (
 func IsSorted(arr []int) error {
 	for i := 0; i < len(arr)-1; i++ {
 		if arr[i] > arr[i+1] {
-			fmt.Println(arr[i],"----",arr[i+1])
-			fmt.Println(i,"----",i+1)
+			fmt.Println(arr[i], "----", arr[i+1])
+			fmt.Println(i, "----", i+1)
 			return errors.New("this sort is error ")
 		}
 
@@ -39,9 +39,9 @@ func SortTest(sortName string, arr []int, t *testing.T) {
 		QuickSort.Sort2ways(arr)
 	} else if sortName == "QuickSort3Ways" {
 		QuickSort.Sort3ways(arr)
-	}else if sortName == "HeapSort" {
+	} else if sortName == "HeapSort" {
 		HeapSort.Sort(arr)
-	}else if sortName == "ShellSort" {
+	} else if sortName == "ShellSort" {
 		ShellSort.ShellSort(arr)
 	}
 	elapsed := time.Since(start)

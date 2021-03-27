@@ -8,7 +8,6 @@ func Sort(data []int) {
 		maxHeap.Add(v)
 	}
 	for i := len(data) - 1; i >= 0; i-- {
-		data[i]=maxHeap.ExtractMax()
+		data[i] = maxHeap.ExtractMax()
 	}
 }
-

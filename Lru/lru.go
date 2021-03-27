@@ -18,6 +18,7 @@ type LRUCache struct {
 	dlist    *list.List
 	cacheMap map[interface{}]*list.Element
 }
+
 func NewLRUCache(cap int) *LRUCache {
 	return &LRUCache{
 		Capacity: cap,
@@ -72,11 +73,9 @@ func (lru *LRUCache) Get(k interface{}) (v interface{}, ret bool, err error) {
 }
 
 func (lru *LRUCache) Remove(k interface{}) bool {
-
 	if lru.cacheMap == nil {
 		return false
 	}
-
 	if pElement, ok := lru.cacheMap[k]; ok {
 		cacheNode := pElement.Value.(*CacheNode)
 		delete(lru.cacheMap, cacheNode.Key)
