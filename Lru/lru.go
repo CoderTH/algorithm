@@ -18,7 +18,6 @@ type LRUCache struct {
 	dlist    *list.List
 	cacheMap map[interface{}]*list.Element
 }
-
 func NewLRUCache(cap int) *LRUCache {
 	return &LRUCache{
 		Capacity: cap,
